@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 
 from ..models import Task
 from .serializers import TaskSerializer
@@ -8,6 +8,8 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ["id"]
 
     def update(self, request, *args, **kwargs):
         kwargs['partial'] = True
